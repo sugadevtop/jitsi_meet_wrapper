@@ -1,13 +1,9 @@
 package dev.saibotma.jitsi_meet_wrapper
 
 import android.app.Activity
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import androidx.annotation.NonNull
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -16,7 +12,9 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import org.jitsi.meet.sdk.*
+import org.jitsi.meet.sdk.BroadcastIntentHelper
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
+import org.jitsi.meet.sdk.JitsiMeetUserInfo
 import java.net.URL
 
 // Got most of this from the example:
@@ -40,6 +38,7 @@ class JitsiMeetWrapperPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             "joinMeeting" -> joinMeeting(call, result)
             "setMuted" -> setMuted(call, result)
             "closeMeeting" -> closeMeeting(call, result)
+            "enterPictureInPictureMode" -> enterPictureInPictureMode(call, result)
             else -> result.notImplemented()
         }
     }
@@ -117,6 +116,7 @@ class JitsiMeetWrapperPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         JitsiMeetWrapperActivity.launch(activity!!, options)
         result.success("Successfully joined room: $room")
     }
+
     private fun setMuted(call: MethodCall, result: Result) {
         val muted = call.argument<Boolean>("muted") ?: false
 
@@ -131,6 +131,12 @@ class JitsiMeetWrapperPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         LocalBroadcastManager.getInstance(activity!!.applicationContext).sendBroadcast(hangupIntent)
 
         result.success("Successfully closed meeting")
+    }
+
+    private fun enterPictureInPictureMode(call: MethodCall, result: Result) {
+        (activity as JitsiMeetWrapperActivity).enterPictureInPictureMeeting()
+
+        result.success("Successfully enter picture in picture mode")
     }
 
     override fun onDetachedFromActivity() {

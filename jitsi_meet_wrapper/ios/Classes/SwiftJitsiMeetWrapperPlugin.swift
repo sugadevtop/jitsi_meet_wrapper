@@ -32,6 +32,9 @@ public class SwiftJitsiMeetWrapperPlugin: NSObject, FlutterPlugin, FlutterStream
         } else if (call.method == "closeMeeting") {
             closeMeeting(call, result: result)
             return
+        } else if (call.method == "enterPictureInPictureMode") {
+            enterPictureInPictureMode(call, result: result)
+            return
         }
     }
 
@@ -118,6 +121,11 @@ public class SwiftJitsiMeetWrapperPlugin: NSObject, FlutterPlugin, FlutterStream
         result(nil)
     }
 
+    private func enterPictureInPictureMode(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        jitsiViewController?.enterPicture(inPicture: [:])
+        result(nil)
+    }
+    
     // FlutterStreamHandler methods
 
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {

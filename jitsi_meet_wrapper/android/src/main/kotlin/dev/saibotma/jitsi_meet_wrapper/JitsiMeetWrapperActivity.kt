@@ -8,10 +8,8 @@ import android.content.IntentFilter
 import android.os.Bundle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import org.jitsi.meet.sdk.BroadcastEvent
-import org.jitsi.meet.sdk.BroadcastIntentHelper;
 import org.jitsi.meet.sdk.JitsiMeetActivity
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
-import java.util.HashMap
 
 
 class JitsiMeetWrapperActivity : JitsiMeetActivity() {
@@ -68,6 +66,10 @@ class JitsiMeetWrapperActivity : JitsiMeetActivity() {
                 BroadcastEvent.Type.READY_TO_CLOSE -> {}
             }
         }
+    }
+
+    fun enterPictureInPictureMeeting() {
+        this.jitsiView?.enterPictureInPicture()
     }
 
     override fun onDestroy() {
