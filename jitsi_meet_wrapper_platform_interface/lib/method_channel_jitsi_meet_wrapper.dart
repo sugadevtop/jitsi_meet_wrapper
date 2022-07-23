@@ -38,9 +38,7 @@ class MethodChannelJitsiMeetWrapper extends JitsiMeetWrapperPlatformInterface {
       'configOverrides': options.configOverrides,
     };
 
-    return await _methodChannel
-        .invokeMethod<String>('joinMeeting', _options)
-        .then((message) {
+    return await _methodChannel.invokeMethod<String>('joinMeeting', _options).then((message) {
       return JitsiMeetingResponse(isSuccess: true, message: message);
     }).catchError((error) {
       return JitsiMeetingResponse(
@@ -58,9 +56,7 @@ class MethodChannelJitsiMeetWrapper extends JitsiMeetWrapperPlatformInterface {
     Map<String, dynamic> _options = {
       'muted': muted,
     };
-    return await _methodChannel
-        .invokeMethod<String>('setMuted', _options)
-        .then((message) {
+    return await _methodChannel.invokeMethod<String>('setMuted', _options).then((message) {
       return JitsiMeetingResponse(isSuccess: true, message: message);
     }).catchError((error) {
       return JitsiMeetingResponse(
@@ -94,8 +90,7 @@ class MethodChannelJitsiMeetWrapper extends JitsiMeetWrapperPlatformInterface {
           _listener?.onVideoMutedChanged?.call(parseBool(data["muted"]));
           break;
         case "screenShareToggled":
-          _listener?.onScreenShareToggled
-              ?.call(data["participantId"], parseBool(data["sharing"]));
+          _listener?.onScreenShareToggled?.call(data["participantId"], parseBool(data["sharing"]));
           break;
         case "participantJoined":
           _listener?.onParticipantJoined?.call(
@@ -230,9 +225,20 @@ class MethodChannelJitsiMeetWrapper extends JitsiMeetWrapperPlatformInterface {
 
   @override
   Future<JitsiMeetingResponse> closeMeeting() async {
-    return await _methodChannel
-        .invokeMethod<String>('closeMeeting')
-        .then((message) {
+    return await _methodChannel.invokeMethod<String>('closeMeeting').then((message) {
+      return JitsiMeetingResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return JitsiMeetingResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
+  }
+
+  @override
+  Future<JitsiMeetingResponse> enterPictureInPictureMode() async {
+    return await _methodChannel.invokeMethod<String>('enterPictureInPictureMode').then((message) {
       return JitsiMeetingResponse(isSuccess: true, message: message);
     }).catchError((error) {
       return JitsiMeetingResponse(

@@ -3,11 +3,7 @@ import 'dart:async';
 import 'package:jitsi_meet_wrapper_platform_interface/jitsi_meet_wrapper_platform_interface.dart';
 
 export 'package:jitsi_meet_wrapper_platform_interface/jitsi_meet_wrapper_platform_interface.dart'
-    show
-        JitsiMeetingOptions,
-        JitsiMeetingResponse,
-        FeatureFlag,
-        JitsiMeetingListener;
+    show JitsiMeetingOptions, JitsiMeetingResponse, FeatureFlag, JitsiMeetingListener;
 
 class JitsiMeetWrapper {
   /// Joins a meeting based on the JitsiMeetingOptions passed in.
@@ -20,12 +16,10 @@ class JitsiMeetWrapper {
     assert(options.roomNameOrUrl.trim().isNotEmpty, "room is empty");
 
     if (options.serverUrl?.isNotEmpty ?? false) {
-      assert(Uri.parse(options.serverUrl!).isAbsolute,
-          "URL must be of the format <scheme>://<host>[/path], like https://someHost.com");
+      assert(Uri.parse(options.serverUrl!).isAbsolute, "URL must be of the format <scheme>://<host>[/path], like https://someHost.com");
     }
 
-    return await JitsiMeetWrapperPlatformInterface.instance
-        .joinMeeting(options: options, listener: listener);
+    return await JitsiMeetWrapperPlatformInterface.instance.joinMeeting(options: options, listener: listener);
   }
 
   static Future<JitsiMeetingResponse> setMuted(bool muted) async {
@@ -36,5 +30,9 @@ class JitsiMeetWrapper {
 
   static Future<JitsiMeetingResponse> closeMeeting() async {
     return await JitsiMeetWrapperPlatformInterface.instance.closeMeeting();
+  }
+
+  static Future<JitsiMeetingResponse> enterPictureInPictureMode() async {
+    return await JitsiMeetWrapperPlatformInterface.instance.enterPictureInPictureMode();
   }
 }

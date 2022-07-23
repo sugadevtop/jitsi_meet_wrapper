@@ -15,8 +15,7 @@ abstract class JitsiMeetWrapperPlatformInterface extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static JitsiMeetWrapperPlatformInterface _instance =
-      MethodChannelJitsiMeetWrapper();
+  static JitsiMeetWrapperPlatformInterface _instance = MethodChannelJitsiMeetWrapper();
 
   /// The default instance of [JitsiMeetWrapperPlatformInterface] to use.
   ///
@@ -42,5 +41,9 @@ abstract class JitsiMeetWrapperPlatformInterface extends PlatformInterface {
 
   Future<JitsiMeetingResponse> closeMeeting() async {
     throw UnimplementedError('closeMeeting has not been implemented.');
+  }
+
+  Future<JitsiMeetingResponse> enterPictureInPictureMode() async {
+    throw UnimplementedError('enterPictureInPictureMode has not been implemented.');
   }
 }
