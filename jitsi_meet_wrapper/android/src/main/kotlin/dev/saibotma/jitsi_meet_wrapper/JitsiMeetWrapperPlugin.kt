@@ -134,7 +134,8 @@ class JitsiMeetWrapperPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     }
 
     private fun enterPictureInPictureMode(call: MethodCall, result: Result) {
-        (activity as JitsiMeetWrapperActivity).enterPictureInPictureMeeting()
+        val intent = Intent(JitsiMeetWrapperActivity.ACTION_ENTER_PICTURE_IN_PICTURE_MODE);
+        LocalBroadcastManager.getInstance(activity!!.applicationContext).sendBroadcast(intent)
 
         result.success("Successfully enter picture in picture mode")
     }
