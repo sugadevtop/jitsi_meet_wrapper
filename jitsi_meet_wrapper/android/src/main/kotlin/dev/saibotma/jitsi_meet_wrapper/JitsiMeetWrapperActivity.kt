@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import org.jitsi.meet.sdk.BroadcastEvent
@@ -33,10 +34,22 @@ class JitsiMeetWrapperActivity : JitsiMeetActivity() {
         }
     }
 
+    var onStopCalled: Boolean = false;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         registerForBroadcastMessages()
         eventStreamHandler.onOpened()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        onStopCalled = true;
+    }
+
+    override fun onResume() {
+        super.onResume()
+        onStopCalled = false
     }
 
     private fun registerForBroadcastMessages() {
@@ -74,8 +87,17 @@ class JitsiMeetWrapperActivity : JitsiMeetActivity() {
         }
     }
 
+    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration?) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+
+        if (!isInPictureInPictureMode && onStopCalled) {
+            // Picture-in-Picture mode has been closed, we can (should !) end the call
+            jitsiView?.leave()
+        }
+    }
+
     private fun enterPictureInPictureMeeting() {
-        this.jitsiView?.enterPictureInPicture()
+        jitsiView?.enterPictureInPicture()
     }
 
     override fun onDestroy() {
