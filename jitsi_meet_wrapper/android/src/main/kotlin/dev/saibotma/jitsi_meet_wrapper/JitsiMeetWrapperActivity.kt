@@ -9,6 +9,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import org.jitsi.meet.sdk.BroadcastEvent
+import org.jitsi.meet.sdk.BroadcastIntentHelper
 import org.jitsi.meet.sdk.JitsiMeetActivity
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 
@@ -92,7 +93,8 @@ class JitsiMeetWrapperActivity : JitsiMeetActivity() {
 
         if (!isInPictureInPictureMode && onStopCalled) {
             // Picture-in-Picture mode has been closed, we can (should !) end the call
-            jitsiView?.leave()
+            val hangupIntent: Intent = BroadcastIntentHelper.buildHangUpIntent()
+            LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(hangupIntent)
         }
     }
 
