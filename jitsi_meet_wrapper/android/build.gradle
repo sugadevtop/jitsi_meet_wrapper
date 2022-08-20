@@ -16,14 +16,9 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
+        maven { url "file:${project(':jitsi_meet_wrapper').projectDir}/libs" }
         google()
         mavenCentral()
-        jcenter()
-        // Required by jitsi
-        maven {
-            url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
-        }
-        // Required, otherwise a dependency of jisti sdk will not be found.
         maven { url 'https://www.jitpack.io' }
     }
 }
