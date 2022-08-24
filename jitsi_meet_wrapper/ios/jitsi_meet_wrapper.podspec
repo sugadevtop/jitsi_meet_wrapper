@@ -15,7 +15,9 @@ A new Flutter project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'JitsiMeetSDK', '5.1.0'
+  s.dependency 'Giphy', '2.1.20'
+  s.dependency 'JitsiWebRTC', '100.0.0'
+  s.vendored_frameworks = 'Frameworks/JitsiMeetSDK.xcframework'
   s.platform = :ios, '8.0'
 
   # Flutter.framework does not contain a i386 slice.
