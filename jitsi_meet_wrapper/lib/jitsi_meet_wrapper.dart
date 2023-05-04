@@ -22,17 +22,16 @@ class JitsiMeetWrapper {
     return await JitsiMeetWrapperPlatformInterface.instance.joinMeeting(options: options, listener: listener);
   }
 
-  static Future<JitsiMeetingResponse> setMuted(bool muted) async {
-    return await JitsiMeetWrapperPlatformInterface.instance.setMuted(
-      muted: muted,
-    );
-  }
-
-  static Future<JitsiMeetingResponse> closeMeeting() async {
-    return await JitsiMeetWrapperPlatformInterface.instance.closeMeeting();
-  }
-
   static Future<JitsiMeetingResponse> enterPictureInPictureMode() async {
     return await JitsiMeetWrapperPlatformInterface.instance.enterPictureInPictureMode();
+  }
+
+  static Future<JitsiMeetingResponse> setAudioMuted(bool isMuted) async {
+    return await JitsiMeetWrapperPlatformInterface.instance
+        .setAudioMuted(isMuted);
+  }
+
+  static Future<JitsiMeetingResponse> hangUp() async {
+    return await JitsiMeetWrapperPlatformInterface.instance.hangUp();
   }
 }

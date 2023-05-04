@@ -50,13 +50,26 @@ class MethodChannelJitsiMeetWrapper extends JitsiMeetWrapperPlatformInterface {
   }
 
   @override
-  Future<JitsiMeetingResponse> setMuted({
-    required bool muted,
-  }) async {
+  Future<JitsiMeetingResponse> setAudioMuted(bool isMuted) async {
     Map<String, dynamic> _options = {
-      'muted': muted,
+      'isMuted': isMuted,
     };
-    return await _methodChannel.invokeMethod<String>('setMuted', _options).then((message) {
+    return await _methodChannel
+        .invokeMethod<String>('setAudioMuted', _options)
+        .then((message) {
+      return JitsiMeetingResponse(isSuccess: true, message: message);
+    }).catchError((error) {
+      return JitsiMeetingResponse(
+        isSuccess: false,
+        message: error.toString(),
+        error: error,
+      );
+    });
+  }
+
+  @override
+  Future<JitsiMeetingResponse> hangUp() async {
+    return await _methodChannel.invokeMethod<String>('hangUp').then((message) {
       return JitsiMeetingResponse(isSuccess: true, message: message);
     }).catchError((error) {
       return JitsiMeetingResponse(
@@ -221,19 +234,6 @@ class MethodChannelJitsiMeetWrapper extends JitsiMeetWrapperPlatformInterface {
       case FeatureFlag.isVideoShareButtonEnabled:
         return 'video-share.enabled';
     }
-  }
-
-  @override
-  Future<JitsiMeetingResponse> closeMeeting() async {
-    return await _methodChannel.invokeMethod<String>('closeMeeting').then((message) {
-      return JitsiMeetingResponse(isSuccess: true, message: message);
-    }).catchError((error) {
-      return JitsiMeetingResponse(
-        isSuccess: false,
-        message: error.toString(),
-        error: error,
-      );
-    });
   }
 
   @override

@@ -6,6 +6,7 @@ import JitsiMeetSDK
 class JitsiMeetWrapperViewController: UIViewController {
     fileprivate var pipViewCoordinator: CustomPiPViewCoordinator?
     fileprivate var jitsiMeetView: UIView?
+    var sourceJitsiMeetView: JitsiMeetView?
 
     let options: JitsiMeetConferenceOptions
     let eventSink: FlutterEventSink
@@ -76,6 +77,7 @@ class JitsiMeetWrapperViewController: UIViewController {
         jitsiMeetView?.removeFromSuperview()
         jitsiMeetView = nil
         pipViewCoordinator = nil
+        sourceJitsiMeetView = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {

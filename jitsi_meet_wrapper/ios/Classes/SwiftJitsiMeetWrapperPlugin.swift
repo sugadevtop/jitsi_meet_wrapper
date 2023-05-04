@@ -26,11 +26,11 @@ public class SwiftJitsiMeetWrapperPlugin: NSObject, FlutterPlugin, FlutterStream
         if (call.method == "joinMeeting") {
             joinMeeting(call, result: result)
             return
-        } else if (call.method == "setMuted") {
-            setMuted(call, result: result)
+        } else if (call.method == "setAudioMuted") {
+            setAudioMuted(call, result: result)
             return
-        } else if (call.method == "closeMeeting") {
-            closeMeeting(call, result: result)
+        } else if (call.method == "hangUp") {
+            hangUp(call, result: result)
             return
         } else if (call.method == "enterPictureInPictureMode") {
             enterPictureInPictureMode(call, result: result)
@@ -109,14 +109,14 @@ public class SwiftJitsiMeetWrapperPlugin: NSObject, FlutterPlugin, FlutterStream
         result(nil)
     }
     
-    private func setMuted(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    private func setAudioMuted(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         let arguments = call.arguments as! [String: Any]
-        let muted = arguments["muted"] as? Bool ?? false
-        jitsiViewController?.sourceJitsiMeetView?.setAudioMuted(muted)
+        let isMuted = arguments["isMuted"] as? Bool ?? false
+        jitsiViewController?.sourceJitsiMeetView?.setAudioMuted(isMuted)
         result(nil)
     }
-    
-    private func closeMeeting(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+
+    private func hangUp(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         jitsiViewController?.sourceJitsiMeetView?.hangUp()
         result(nil)
     }

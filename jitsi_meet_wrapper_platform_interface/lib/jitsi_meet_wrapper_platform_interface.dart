@@ -35,12 +35,12 @@ abstract class JitsiMeetWrapperPlatformInterface extends PlatformInterface {
     throw UnimplementedError('joinMeeting has not been implemented.');
   }
 
-  Future<JitsiMeetingResponse> setMuted({required bool muted}) async {
-    throw UnimplementedError('setMuted has not been implemented.');
+  Future<JitsiMeetingResponse> setAudioMuted(bool isMuted) async {
+    throw UnimplementedError('setAudioMuted has not been implemented.');
   }
 
-  Future<JitsiMeetingResponse> closeMeeting() async {
-    throw UnimplementedError('closeMeeting has not been implemented.');
+  Future<JitsiMeetingResponse> hangUp() async {
+    throw UnimplementedError('hangUp has not been implemented.');
   }
 
   Future<JitsiMeetingResponse> enterPictureInPictureMode() async {

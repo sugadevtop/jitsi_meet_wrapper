@@ -31,19 +31,6 @@ var options = JitsiMeetingOptions(roomName: "my-room");
 await JitsiMeetWrapper.joinMeeting(options);
 ```
 
-
-### Mute or unmute
-
-```dart
-JitsiMeetWrapper.setMuted(true);
-```
-
-### Close the meeting:
-
-```dart
-JitsiMeetWrapper.closeMeeting();
-```
-
 Take a look
 at [`JitsiMeetingOptions`](https://github.com/saibotma/jitsi_meet_wrapper/blob/main/jitsi_meet_wrapper_platform_interface/lib/jitsi_meeting_options.dart)
 for all the available options.
@@ -225,7 +212,6 @@ await JitsiMeetWrapper.joinMeeting(
 ### Known issues
 
 - Picture in Picture is not working during screen sharing. (https://github.com/jitsi/jitsi-meet/issues/9099)
-- An app using this plugin will not build for simulator when using `flutter run` and Flutter lower than version 2.8.
 - Camera orientation is (wrongly) portrait by default. (https://github.com/jitsi/jitsi-meet/issues/10596)
 - Screen dims during meeting when `wakelock` plugin is
   used. (https://github.com/creativecreatorormaybenot/wakelock/issues/154)
